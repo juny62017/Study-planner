@@ -84,3 +84,20 @@ button:hover{
         padding:25px 10px;
     }
 }
+
+.subject-card{
+    border:1px solid #dcdcdc;
+    padding:15px;
+    margin-top:15px;
+    background:#fafafa;
+}
+
+.subject-card h3{
+    margin-bottom:8px;
+    font-size:18px;
+}
+
+.subject-card p{
+    color:#555;
+    font-size:14px;
+}
