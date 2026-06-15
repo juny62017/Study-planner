@@ -132,3 +132,15 @@ button:hover{
     margin-bottom:6px;
     color:#333;
 }
+
+.task-check{
+    margin-right:8px;
+}
+
+.task-list label{
+    cursor:pointer;
+}
+
+.task-list li{
+    list-style:none;
+}

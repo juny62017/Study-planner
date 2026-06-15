@@ -67,9 +67,30 @@ subjectForm.addEventListener("submit", function(e){
         }
 
         const taskItem = document.createElement("li");
-        taskItem.textContent = taskText;
+
+        taskItem.innerHTML = `
+            <label>
+                <input type="checkbox" class="task-check">
+                ${taskText}
+            </label>
+        `;
 
         taskList.appendChild(taskItem);
+
+        const taskCheck = taskItem.querySelector(".task-check");
+
+        taskCheck.addEventListener("change", function(){
+
+            if(taskCheck.checked){
+                taskItem.style.textDecoration = "line-through";
+                taskItem.style.opacity = "0.7";
+            }
+            else{
+                taskItem.style.textDecoration = "none";
+                taskItem.style.opacity = "1";
+            }
+
+        });
 
         taskInput.value = "";
     });
