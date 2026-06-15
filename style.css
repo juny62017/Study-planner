@@ -101,3 +101,12 @@ button:hover{
     color:#555;
     font-size:14px;
 }
+
+.delete-btn{
+    margin-top:10px;
+    background:#dc2626;
+}
+
+.delete-btn:hover{
+    background:#b91c1c;
+}
