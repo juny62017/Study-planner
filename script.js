@@ -27,6 +27,14 @@ subjectForm.addEventListener("submit", function(e){
     subjectCard.innerHTML = `
         <h3>${subjectName}</h3>
         <p>Exam Date: ${examDate || "Not Set"}</p>
+
+        <div class="task-area">
+            <input type="text" class="task-input" placeholder="Add a study task">
+            <button class="task-btn">Add Task</button>
+
+            <ul class="task-list"></ul>
+        </div>
+
         <button class="delete-btn">Remove</button>
     `;
 
@@ -44,6 +52,26 @@ subjectForm.addEventListener("submit", function(e){
 
             subjectsSection.appendChild(emptyMessage);
         }
+    });
+
+    const taskInput = subjectCard.querySelector(".task-input");
+    const taskButton = subjectCard.querySelector(".task-btn");
+    const taskList = subjectCard.querySelector(".task-list");
+
+    taskButton.addEventListener("click", function(){
+
+        const taskText = taskInput.value.trim();
+
+        if(taskText === ""){
+            return;
+        }
+
+        const taskItem = document.createElement("li");
+        taskItem.textContent = taskText;
+
+        taskList.appendChild(taskItem);
+
+        taskInput.value = "";
     });
 
     subjectsSection.appendChild(subjectCard);

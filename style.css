@@ -110,3 +110,25 @@ button:hover{
 .delete-btn:hover{
     background:#b91c1c;
 }
+
+.task-area{
+    margin-top:15px;
+}
+
+.task-input{
+    margin-bottom:10px;
+}
+
+.task-btn{
+    margin-bottom:10px;
+    background:#043216;
+}
+
+.task-list{
+    margin-left:20px;
+}
+
+.task-list li{
+    margin-bottom:6px;
+    color:#333;
+}
