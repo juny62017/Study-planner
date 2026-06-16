@@ -28,6 +28,14 @@ subjectForm.addEventListener("submit", function(e){
         <h3>${subjectName}</h3>
         <p>Exam Date: ${examDate || "Not Set"}</p>
 
+        <div class="progress-wrapper">
+            <p class="progress-text">Progress: 0%</p>
+
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+        </div>
+
         <div class="task-area">
             <input type="text" class="task-input" placeholder="Add a study task">
             <button class="task-btn">Add Task</button>
@@ -57,6 +65,35 @@ subjectForm.addEventListener("submit", function(e){
     const taskInput = subjectCard.querySelector(".task-input");
     const taskButton = subjectCard.querySelector(".task-btn");
     const taskList = subjectCard.querySelector(".task-list");
+
+    const progressFill = subjectCard.querySelector(".progress-fill");
+    const progressText = subjectCard.querySelector(".progress-text");
+
+    function updateProgress(){
+
+        const allTasks = taskList.querySelectorAll(".task-check");
+
+        if(allTasks.length === 0){
+            progressFill.style.width = "0%";
+            progressText.textContent = "Progress: 0%";
+            return;
+        }
+
+        let completedTasks = 0;
+
+        allTasks.forEach(function(task){
+            if(task.checked){
+                completedTasks++;
+            }
+        });
+
+        const percentage = Math.round(
+            (completedTasks / allTasks.length) * 100
+        );
+
+        progressFill.style.width = percentage + "%";
+        progressText.textContent = "Progress: " + percentage + "%";
+    }
 
     taskButton.addEventListener("click", function(){
 
@@ -90,7 +127,10 @@ subjectForm.addEventListener("submit", function(e){
                 taskItem.style.opacity = "1";
             }
 
+            updateProgress();
         });
+
+        updateProgress();
 
         taskInput.value = "";
     });
