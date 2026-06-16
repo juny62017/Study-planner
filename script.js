@@ -3,6 +3,8 @@ const subjectInput = document.getElementById("subject");
 const examDateInput = document.getElementById("exam-date");
 
 const subjectsSection = document.querySelector(".subjects-section");
+const clearAllButton =
+    document.getElementById("clear-all-btn");
 
 function saveSubjects(){
 
@@ -227,4 +229,17 @@ window.addEventListener("load", function(){
 
     subjectInput.value = "";
     examDateInput.value = "";
+});
+
+clearAllButton.addEventListener("click", function(){
+
+    subjectsSection.innerHTML = `
+        <h2>Your Subjects</h2>
+
+        <div class="empty-state">
+            <p>No subjects added yet.</p>
+        </div>
+    `;
+
+    localStorage.removeItem("studySubjects");
 });

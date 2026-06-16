@@ -174,3 +174,12 @@ button:hover{
     font-size:14px;
     color:#444;
 }
+
+#clear-all-btn{
+    margin-left:10px;
+    background:#444;
+}
+
+#clear-all-btn:hover{
+    background:#222;
+}
