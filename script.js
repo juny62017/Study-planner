@@ -4,6 +4,31 @@ const examDateInput = document.getElementById("exam-date");
 
 const subjectsSection = document.querySelector(".subjects-section");
 
+function saveSubjects(){
+
+    const subjects = [];
+
+    document.querySelectorAll(".subject-card").forEach(function(card){
+
+        const subjectName =
+            card.querySelector("h3").textContent;
+
+        const examDate =
+            card.dataset.examDate || "";
+
+        subjects.push({
+            subject: subjectName,
+            examDate: examDate
+        });
+
+    });
+
+    localStorage.setItem(
+        "studySubjects",
+        JSON.stringify(subjects)
+    );
+}
+
 subjectForm.addEventListener("submit", function(e){
     e.preventDefault();
 
@@ -23,10 +48,12 @@ subjectForm.addEventListener("submit", function(e){
 
     const subjectCard = document.createElement("div");
     subjectCard.classList.add("subject-card");
+    subjectCard.dataset.examDate = examDate;
 
     subjectCard.innerHTML = `
         <h3>${subjectName}</h3>
         <p>Exam Date: ${examDate || "Not Set"}</p>
+        <p class="countdown-text"></p>
 
         <div class="progress-wrapper">
             <p class="progress-text">Progress: 0%</p>
@@ -49,7 +76,10 @@ subjectForm.addEventListener("submit", function(e){
     const deleteButton = subjectCard.querySelector(".delete-btn");
 
     deleteButton.addEventListener("click", function(){
+
         subjectCard.remove();
+
+        saveSubjects();
 
         const cards = document.querySelectorAll(".subject-card");
 
@@ -68,6 +98,37 @@ subjectForm.addEventListener("submit", function(e){
 
     const progressFill = subjectCard.querySelector(".progress-fill");
     const progressText = subjectCard.querySelector(".progress-text");
+    const countdownText = subjectCard.querySelector(".countdown-text");
+
+    function updateCountdown(){
+
+        if(!examDate){
+            countdownText.textContent = "No exam date selected";
+            return;
+        }
+
+        const today = new Date();
+        const exam = new Date(examDate);
+
+        const difference = exam - today;
+
+        const daysRemaining = Math.ceil(
+            difference / (1000 * 60 * 60 * 24)
+        );
+
+        if(daysRemaining > 0){
+            countdownText.textContent =
+                daysRemaining + " day(s) remaining";
+        }
+        else if(daysRemaining === 0){
+            countdownText.textContent =
+                "Exam is today";
+        }
+        else{
+            countdownText.textContent =
+                "Exam date has passed";
+        }
+    }
 
     function updateProgress(){
 
@@ -94,6 +155,8 @@ subjectForm.addEventListener("submit", function(e){
         progressFill.style.width = percentage + "%";
         progressText.textContent = "Progress: " + percentage + "%";
     }
+
+    updateCountdown();
 
     taskButton.addEventListener("click", function(){
 
@@ -136,6 +199,31 @@ subjectForm.addEventListener("submit", function(e){
     });
 
     subjectsSection.appendChild(subjectCard);
+
+    saveSubjects();
+
+    subjectInput.value = "";
+    examDateInput.value = "";
+});
+
+window.addEventListener("load", function(){
+
+    const savedSubjects =
+        JSON.parse(localStorage.getItem("studySubjects"));
+
+    if(!savedSubjects){
+        return;
+    }
+
+    savedSubjects.forEach(function(item){
+
+        subjectInput.value = item.subject;
+        examDateInput.value = item.examDate;
+
+        subjectForm.dispatchEvent(
+            new Event("submit")
+        );
+    });
 
     subjectInput.value = "";
     examDateInput.value = "";
