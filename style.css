@@ -183,3 +183,12 @@ button:hover{
 #clear-all-btn:hover{
     background:#222;
 }
+
+.edit-btn{
+    margin-right:8px;
+    background:#1f4b8f;
+}
+
+.edit-btn:hover{
+    background:#17396d;
+}

@@ -72,11 +72,32 @@ subjectForm.addEventListener("submit", function(e){
             <ul class="task-list"></ul>
         </div>
 
-        <button class="delete-btn">Remove</button>
+        <button class="edit-btn">Edit</button>
+<button class="delete-btn">Remove</button>
     `;
 
-    const deleteButton = subjectCard.querySelector(".delete-btn");
+    const editButton = subjectCard.querySelector(".edit-btn");
+const deleteButton = subjectCard.querySelector(".delete-btn");
+editButton.addEventListener("click", function(){
 
+    const currentTitle =
+        subjectCard.querySelector("h3");
+
+    const newSubject =
+        prompt(
+            "Edit subject name",
+            currentTitle.textContent
+        );
+
+    if(newSubject && newSubject.trim() !== ""){
+
+        currentTitle.textContent =
+            newSubject.trim();
+
+        saveSubjects();
+    }
+
+});
     deleteButton.addEventListener("click", function(){
 
         subjectCard.remove();
@@ -243,3 +264,4 @@ clearAllButton.addEventListener("click", function(){
 
     localStorage.removeItem("studySubjects");
 });
+
